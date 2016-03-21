@@ -41,6 +41,11 @@ while(1)
 	* init a lot of thing
 
 
+### Reentrance review
+
+* problems 
+	* when multiple actors use same data
+
 ### Reentrance again
 
 property of being able to tolerate multiple invocations of a piece of cake 
@@ -64,13 +69,16 @@ at my queue time, HOW TO ---
 	```
 
 * Solution for MultiProcessor, ATOMIC TEST SET
-	relies on cache coherence
+	* test and set !!!
+	* relies on cache coherence
+
 3. don't use interrupt
+	* e.g.
 	```c
 		while(1)
 		{
 			// previous
-				// check
+			// check
 		}
 	```
 	* upside

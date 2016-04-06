@@ -91,7 +91,7 @@ static void run_next( struct event *p )
 /* 
  * load a brand new sensor activity in the scheduler
  */
-int load_new_sensor( int timeout, int repeat, Sensor *sensor_ptr, int otherinfo )
+int load_new_sensor( int timeout, int repeat, BaseSensor *sensor_ptr, int otherinfo )
 {
 
     /* assume we have available event in freelist */

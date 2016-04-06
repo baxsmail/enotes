@@ -1,5 +1,7 @@
-#ifndef _MY_SENSOR_H_
-#define _MY_SENSOR_H_
+#ifndef _My_SENSOR_H_
+#define _My_SENSOR_H_
+
+#include "Base_Sensor.h"
 
 struct _My_Sensor;
 typedef struct _My_Sensor MySensor;
@@ -15,14 +17,18 @@ typedef struct _My_vmt
 
 struct _My_Sensor
 {
-    Sensor inherited;
+    BaseSensor inherited;
 };
 
-void My_FctnInit(MySensor *this);
+
+void My_FctnInit( MySensor *this);
 void My_Init( MySensor *this);
-void My_Configure(MySensor *this );
-void My_PreProcessing(MySensor *this );
-void My_Collect(MySensor *this );
-void My_Error(MySensor *this );
-MySensor* New_MySensor( int num );
+void My_Configure( MySensor *this );
+void My_PreProcessing( MySensor *this );
+void My_Collect( MySensor *this );
+void My_Error( MySensor *this );
+MySensor* New_My_Sensor( int num );
+
+
+
 #endif

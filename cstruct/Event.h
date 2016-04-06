@@ -11,7 +11,7 @@
 #include <stdio.h>
 //#include "utilities/llist.h"
 #include "llist.h"
-#include "Sensor.h"
+#include "Base_Sensor.h"
 
 /* #define DEBGU */
 #define DEBUG
@@ -27,7 +27,7 @@ struct event
 	int timeout;
 	int repeat_interval;
     //TODO int borrow_timeout;
-	Sensor * sp;
+	BaseSensor * sp;
 	int info;
     enum DeviceState cur_state;
     void (* run)(struct event *);
@@ -47,7 +47,7 @@ static void run_next( struct event *p );
 
 
 /* API of the Round-Robin Scheduler */
-int load_new_sensor( int timeout, int repeat, Sensor *sensor_ptr, int otherinfo );
+int load_new_sensor( int timeout, int repeat, BaseSensor *sensor_ptr, int otherinfo );
 void init_timeoutq();
 int get_next_interval();
 void insert_timeoutq_event( struct event * event_pointer);

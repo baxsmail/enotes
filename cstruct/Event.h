@@ -26,7 +26,7 @@ struct event
 	LL_PTRS;
 	int timeout;
 	int repeat_interval;
-    //TODO int borrow_timeout;
+    int borrow_timeout;
 	BaseSensor * sp;
 	int info;
     enum DeviceState cur_state;

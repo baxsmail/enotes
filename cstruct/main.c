@@ -25,7 +25,7 @@ int main()
     new_p->vmt->MyPrint(new_p);
     */
     printf("load begin\n");
-    load_new_sensor( 1, 1, (BaseSensor *)p, 0 );
+    load_new_sensor( 1, 2, (BaseSensor *)p, 0 );
     printf("load ready\n");
     handle_timeoutq_event();
     enum MyEnum vg ;

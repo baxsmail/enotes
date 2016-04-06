@@ -56,6 +56,7 @@ static void run_next( struct event *p )
             //      p->cur_state = Running;
             //      p->timeout = retNum;
             //      TODO : time arrangement should be re-think
+			//      p->borrow_timeout = retNum;
             //      update borrow_timeout;
             //      insert_timeoutq_event( p );
             // }
@@ -101,9 +102,10 @@ int load_new_sensor( int timeout, int repeat, BaseSensor *sensor_ptr, int otheri
         return -1;
     ep->timeout = timeout;
     ep->repeat_interval = repeat;
+	ep->borrow_timeout = 0;
     ep->sp = sensor_ptr;
     ep->info = otherinfo;
-    ep->cur_state = New;
+    ep->cur_state = Ready;
     ep->run = run_next;
     insert_timeoutq_event( ep );
     return 0;
@@ -171,7 +173,11 @@ int handle_timeoutq_event( )
     LL_POP( timeoutq );
     if( ev->repeat_interval != 0 )
     {
-        ev->timeout = ev->repeat_interval ;
+		ev->timeout = ev->repeat_interval - ev->borrow_timeout ;
+		while( ev->timeout < 0 )
+		{
+			ev->timeout += ev->repeat_interval;
+		}
         insert_timeoutq_event( ev );
     }
     else

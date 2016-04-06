@@ -11,7 +11,7 @@
 static void run_next( struct event *p )
 {
     printf(" run :\n\t");
-    p->sp->vmt->MyPrint(p);
+    p->sp->vmt->MyPrint(p->sp);
     // TODO : determine which event run next
     // may need to add a state machine in event
     // run function like:
@@ -107,6 +107,10 @@ int handle_timeoutq_event( )
     {
         LL_PUSH( freelist, ev );
     }
+
+    /* TODO : update next event by calling set_timer(int) in Event_timer.h 
+     * set_timer( get_next_interval() );
+     */
     return 0;
 }
 

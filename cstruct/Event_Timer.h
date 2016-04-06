@@ -5,6 +5,7 @@
 
 #include "avr/io.h"
 #include "avr/interrupt.h"
+#include "Event.h"
 
 #define APERIOD 8
 
@@ -63,6 +64,15 @@ void set_timer( int period_number )
         general_set_timer( period_number );
     }
 }
+
+/*
+TODO :
+ISR ( xxx )
+{
+    handle_timeoutq_event();
+}
+
+*/
 
 #endif
 #endif

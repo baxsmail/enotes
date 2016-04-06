@@ -14,7 +14,8 @@
 #include "Sensor.h"
 
 /* #define DEBGU */
-#define MAX_EVENTS	8
+#define DEBUG
+#define MAX_EVENTS	16
 #define MAX_SLEEP_INTERVAL 0x04 // That is a second currently
 #define EV_NULL ( struct event * ) (LL_NULL)
 typedef void (* pfv_t)();

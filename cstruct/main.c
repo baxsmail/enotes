@@ -1,6 +1,13 @@
 #include "Sensor.h"
 #include "My_Sensor.h"
 
+enum MyEnum 
+{
+    CTY,
+    Burning,
+    ROTK
+};
+
 int main()
 {
     init_timeoutq();
@@ -27,5 +34,8 @@ int main()
     printf("load ready\n");
     handle_timeoutq_event();
     p->inherited.vmt->MyPrint(p);
+    enum MyEnum vg ;
+    vg = ROTK;
+    printf("VG = %d\n",vg);
 	return 0;
 }

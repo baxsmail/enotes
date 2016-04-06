@@ -10,8 +10,78 @@
 /* run-next function */
 static void run_next( struct event *p )
 {
-    printf(" run :\n\t");
-    p->sp->vmt->MyPrint(p->sp);
+    int retNum;
+    int data = 0;
+
+    /* sanity check */
+    if( p == EV_NULL )
+    {
+#ifdef DEBUG
+        printf("Null Event Error !!!");
+#endif
+        return;
+    }
+
+
+#ifdef DEBUG
+    printf("cur_state = %d\n", p->cur_state);
+#endif
+    switch( p->cur_state )
+    {
+        /* New : not init yet */
+        case New :
+            // TODO : if retNum not valid go to Oops state
+            // retNum = p->sp->vmt->Init();
+            p->cur_state = Ready;
+            break;
+        /* Ready : ready to activate collection preprocess */
+        case Ready :
+            // retNum = p->sp->vmt->PreProcess();
+            // TODO : retNum = waiting time
+            // if ( retNum == -1 )
+            // {
+            //      p->cur_state = Oops;
+            // }
+            // else if ( retNum == 0 )
+            // {
+            //      p->cur_state = Ready;
+            //      TODO : can wrap callback as a macro define 
+            //      data = p->sp->vmt->Collect();
+#ifdef DEBUG
+            //      printf("data : %d\n", data);
+#endif
+            // }
+            // else
+            // {
+            //      p->cur_state = Running;
+            //      p->timeout = retNum;
+            //      TODO : time arrangement should be re-think
+            //      update borrow_timeout;
+            //      insert_timeoutq_event( p );
+            // }
+            //
+            //
+            break;
+        /* Running : ready to pull data right away */
+        case Running :
+            //      data = p->sp->vmt->Collect();
+            p->cur_state = Ready;
+#ifdef DEBUG
+            //      printf("data : %d\n", data);
+#endif
+            break;
+        /* Oops : when bus error occurs */
+        case Oops :
+            // TODO : call some handler fctns
+            // reset the cur_state to new maybe
+#ifdef DEBUG
+            //      printf("Something really wrong happens"\n);
+#endif
+            break;
+    }
+    // printf(" run :\n\t");
+    // p->sp->vmt->MyPrint(p->sp);
+    
     // TODO : determine which event run next
     // may need to add a state machine in event
     // run function like:
@@ -33,6 +103,7 @@ int load_new_sensor( int timeout, int repeat, Sensor *sensor_ptr, int otherinfo 
     ep->repeat_interval = repeat;
     ep->sp = sensor_ptr;
     ep->info = otherinfo;
+    ep->cur_state = New;
     ep->run = run_next;
     insert_timeoutq_event( ep );
     return 0;
@@ -117,7 +188,7 @@ int handle_timeoutq_event( )
 void insert_timeoutq_event( struct event * ep)
 {
 	// Try to insert it according to timeout and timeoutq
-	struct event * it;
+struct event * it;
 	short is_pushed = 0;
 
 	// Judge if we gonna insert it before a current event in timeque

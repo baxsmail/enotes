@@ -18,16 +18,18 @@
 #define MAX_EVENTS	16
 #define MAX_SLEEP_INTERVAL 0x04 // That is a second currently
 #define EV_NULL ( struct event * ) (LL_NULL)
-typedef void (* pfv_t)();
 
+enum DeviceState { New, Ready, Running, Terminated, Oops };
 
 struct event 
 {
 	LL_PTRS;
 	int timeout;
 	int repeat_interval;
+    //TODO int borrow_timeout;
 	Sensor * sp;
 	int info;
+    enum DeviceState cur_state;
     void (* run)(struct event *);
 };
 

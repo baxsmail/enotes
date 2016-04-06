@@ -8,12 +8,6 @@ all : $(TARGET)
 
 clean :
 	rm -f *.o
-	rm -f *.bin
-	rm -f *.hex
-	rm -f *.elf
-	rm -f *.list
-	rm -f *.img
-	rm -f *.auto
 	rm -f *.exe
 
 SRC := $(wildcard *.c ./src/*.c )

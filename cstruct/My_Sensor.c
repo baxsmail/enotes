@@ -3,23 +3,41 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-My_FctnTable My_vmt = { My_FctnInit, My_Init, My_MyPrint };
+Base_FctnTable My_vmt = { Base_FctnInit, Base_Init, Base_Configure, Base_PreProcessing, Base_Collect, Base_Error };
 
 void My_FctnInit( MySensor *this)
 {
     this->inherited.vmt = & My_vmt;
 }
-void My_Init( MySensor *this)
+
+void My_Init(MySensor *this )
 {
-    this->inherited.test_num = 7;
 }
-void My_MyPrint( MySensor *this )
+
+void My_Configure(MySensor *this )
 {
-	printf("My num = %d\n",this->inherited.test_num);
+	// virtual function
 }
-MySensor* New_MySensor( int num )
+
+void My_PreProcessing(MySensor *this )
 {
-    MySensor *p = malloc( sizeof(MySensor) );
-    p->inherited.test_num = num;
-    return p;
+	// virtual function
 }
+
+void My_Collect(MySensor *this )
+{
+	// virtual function
+}
+
+void My_Error(MySensor *this )
+{
+	// virtual function
+}
+
+MySensor* New_MySensor( int num)
+{
+	Sensor *p = malloc(sizeof(MySensor));
+	p->test_num = num;
+	return p;
+}
+

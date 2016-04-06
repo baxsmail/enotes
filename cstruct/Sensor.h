@@ -7,7 +7,10 @@ typedef struct _vmt
 {
 	void (*FctnInit)(Sensor*);
 	void (*Init)(Sensor*);
-	void (*MyPrint)(Sensor*);
+	void (*Configure)(Sensor*);
+	void (*PreProcessing)(Sensor*);
+	void (*Collect)(Sensor*);
+	void (*Error)(Sensor*);
 } Base_FctnTable;
 
 struct _Sensor
@@ -19,14 +22,11 @@ struct _Sensor
 
 void Base_FctnInit(Sensor *this);
 void Base_Init( Sensor *this);
-void Base_MyPrint( Sensor *this );
+void Base_Configure(Sensor *this );
+void Base_PreProcessing(Sensor *this );
+void Base_Collect(Sensor *this );
+void Base_Error(Sensor *this );
 Sensor* New_Sensor( int num );
-
-/* functions
- * Init : Sensor Init
- *
- */
-
 
 
 

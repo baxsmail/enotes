@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-Base_FctnTable E_vmt = { Base_FctnInit, Base_Init, Base_MyPrint };
+Base_FctnTable E_vmt = { Base_FctnInit, Base_Init, Base_Configure, Base_PreProcessing, Base_Collect, Base_Error };
 
 void Base_FctnInit(Sensor *this)
 {
@@ -14,11 +14,25 @@ void Base_Init(Sensor *this )
 	this->test_num = 10;
 }
 
-void Base_MyPrint(Sensor *this )
+void Base_Configure(Sensor *this )
 {
-	printf("num = %d\n",this->test_num);
+	// virtual function
 }
 
+void Base_PreProcessing(Sensor *this )
+{
+	// virtual function
+}
+
+void Base_Collect(Sensor *this )
+{
+	// virtual function
+}
+
+void Base_Error(Sensor *this )
+{
+	// virtual function
+}
 
 Sensor* New_Sensor( int num)
 {

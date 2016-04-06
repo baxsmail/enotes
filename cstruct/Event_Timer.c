@@ -1,22 +1,6 @@
-#ifndef _EVENT_TIMER_H_
-#define _EVENT_TIMER_H_
+#include "Event_Timer.h"
 
 #ifdef ATMEL
-
-#include "avr/io.h"
-#include "avr/interrupt.h"
-#include "Event.h"
-
-#define APERIOD 8
-
-static int timer_usage = 0;
-
-void init_Event_Timer(void);
-void general_set_timer( int period_number );
-
-void init_set_timer( int period_number );
-
-void set_timer( int period_number );
 
 /*
 TODO :
@@ -27,7 +11,64 @@ ISR ( xxx )
 
 */
 
-#endif
+
+
+/* Initialization Routine Example 3 : Timer 2 Async operation */
+/* Clock for Timer 2 is taken from crystal connected to TOSC pins */
+void init_Event_Timer(void)
+{
+	/* Select clock source as crystal on TOSCn pins */
+	ASSR |= 1 << AS2;
+	/* Clear Timer on compare match. Toggle OC2A on Compare Match */
+	TCCR2A = (1<<COM2A0) | (1<<WGM21);
+	/* Timer Clock = 32768 Hz / 1024 */
+	TCCR2B = (1<<CS22)|(1<<CS21)|(1<<CS20);
+	/* Set Output Compare Value to 32. Output pin will toggle every second */
+	OCR2A  = 32;
+	/* Wait till registers are ready
+	 * Refer ATmega328PB datasheet section
+	 * 'Asynchronous Operation of Timer/Counter2' */
+	while ((ASSR & ((1 << OCR2AUB) | (1 << OCR2BUB) | (1 << TCR2AUB) 
+		| (1 << TCR2BUB) | (1<< TCN2UB))));
+	/* Clear pending interrupts */
+	TIFR2  = (1 << TOV2) | (1 << OCF2A) | (1 << OCF2B);
+	/* Enable Timer 2 Output Compare Match Interrupt */
+	TIMSK2 = (1 << OCIE2A);
+}
+
+
+void general_set_timer( int period_number )
+{
+    OCR2A = period_number * APERIOD ;
+}
+
+void init_set_timer( int period_number )
+{
+    general_set_timer( period_number );
+    /* Wait till registers are ready
+	 * Refer ATmega328PB datasheet section
+	 * 'Asynchronous Operation of Timer/Counter2' */
+	while ((ASSR & ((1 << OCR2AUB) | (1 << OCR2BUB) | (1 << TCR2AUB) 
+		| (1 << TCR2BUB) | (1<< TCN2UB))));
+	/* Clear pending interrupts */
+	TIFR2  = (1 << TOV2) | (1 << OCF2A) | (1 << OCF2B);
+	/* Enable Timer 2 Output Compare Match Interrupt */
+	TIMSK2 = (1 << OCIE2A);
+}
+
+void set_timer( int period_number )
+{
+    if( timer_usage == 0 )
+    {
+        init_set_timer( period_number );
+    }
+    else
+    {
+        general_set_timer( period_number );
+    }
+}
+
+
 #endif
 
 /**

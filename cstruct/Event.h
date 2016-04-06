@@ -1,33 +1,61 @@
+/*
+ * Event.h
+ *
+ * Created: 2016/4/4 13:32:45
+ *  Author: AB
+ */ 
+
+
 #ifndef _EVENT_H_
 #define _EVENT_H_
+#include <stdio.h>
+//#include "utilities/llist.h"
+#include "llist.h"
+#include "Sensor.h"
 
-struct _Event;
-typedef struct _Event Event;
-typedef struct _vmt
-{
-	void (*FctnInit)(Event*);
-	void (*Init)(Event*);
-	void (*MyPrint)(Event*);
-} FctnTable;
+/* #define DEBGU */
+#define MAX_EVENTS	8
+#define MAX_SLEEP_INTERVAL 0x04 // That is a second currently
+#define EV_NULL ( struct event * ) (LL_NULL)
+typedef void (* pfv_t)();
 
-struct _Event
+
+struct event 
 {
-	int test_num;
-	FctnTable *vmt;
+	LL_PTRS;
+	int timeout;
+	int repeat_interval;
+	Sensor * sp;
+	int info;
+    void (* run)(struct event *);
 };
 
+struct event queue[ MAX_EVENTS ];
 
-void Event_init(Event *this);
-void E_update( Event *this);
-void E_print( Event *this );
-Event* Event_new( int num);
+/* list anchors -- important, but ignore them; they are never used directly */
+llobject_t TQ;
+llobject_t FL;
+struct event *timeoutq;
+struct event *freelist;
 
-/* functions
- * Init : Sensor Init
- *
- */
-
+/* run-next function */
+static void run_next( struct event *p );
 
 
+
+/* API of the Round-Robin Scheduler */
+int load_new_sensor( int timeout, int repeat, Sensor *sensor_ptr, int otherinfo );
+void init_timeoutq();
+int get_next_interval();
+void insert_timeoutq_event( struct event * event_pointer);
+int handle_timeoutq_event( );
+
+#ifdef DEBUG
+
+void dump_timeoutq();
+void foo();
 
 #endif
+
+
+#endif /* EVENT_H_ */

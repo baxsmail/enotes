@@ -13,7 +13,7 @@ int main()
     init_timeoutq();
 
 	BaseSensor *t = New_Base_Sensor( 1425 );
-	Base_FctnInit(t);
+    t->abstract->device_vt->init(t);
 
     MySensor *p = New_My_Sensor( 1023 );
     My_FctnInit(p);
@@ -24,9 +24,7 @@ int main()
     new_p->vmt->Init(new_p);
     new_p->vmt->MyPrint(new_p);
     */
-    printf("load begin\n");
-    load_new_sensor( 1, 2, (BaseSensor *)p, 0 );
-    printf("load ready\n");
+    load_new_sensor( 1, 2, (BaseSensor *)t, 0 );
     handle_timeoutq_event();
     enum MyEnum vg ;
     vg = ROTK;

@@ -21,6 +21,7 @@ void My_Configure(MySensor *this )
 
 void My_PreProcessing(MySensor *this )
 {
+    printf("My Pre\n");
 	// virtual function
 }
 

@@ -6,12 +6,14 @@
  */ 
 // #include "Event/Event.h"
 #include "Event.h"
+#include "Base_Device.h"
 
 /* run-next function */
 static void run_next( struct event *p )
 {
     int retNum;
     int data = 0;
+    BaseDevice *tp;
 
     /* sanity check */
     if( p == EV_NULL )
@@ -36,6 +38,8 @@ static void run_next( struct event *p )
             break;
         /* Ready : ready to activate collection preprocess */
         case Ready :
+            p->sp->abstract->device_vt->init(p->sp->abstract);
+            p->sp->vmt->PreProcessing(p->sp);
             // retNum = p->sp->vmt->PreProcess();
             // TODO : retNum = waiting time
             // if ( retNum == -1 )

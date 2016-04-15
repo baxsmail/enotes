@@ -3,7 +3,14 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-Base_FctnTable Base_vmt = { Base_FctnInit, Base_Init, Base_Configure, Base_PreProcessing, Base_Collect, Base_Error };
+Base_FctnTable Base_vmt = { 
+    Base_FctnInit, 
+    Base_Init,
+    Base_Configure,
+    Base_PreProcessing,
+    Base_Collect,
+    Base_Error 
+};
 
 Abstract_FctnTable Abstract_vmt = {
     Base_VTinit,
@@ -46,7 +53,7 @@ void Base_Error(BaseSensor *this )
 BaseSensor* New_Base_Sensor( int num)
 {
 	BaseSensor *p = malloc(sizeof(BaseSensor));
-    p->abstract = New_Base_Device();
+    // p->abstract = New_Base_Device();
 	p->test_num = num;
     Base_FctnInit(p);
     Base_VTinit(p);
@@ -55,7 +62,7 @@ BaseSensor* New_Base_Sensor( int num)
 
 void Base_VTinit( BaseSensor* this)
 {
-    this->abstract->device_vt = &Abstract_vmt;
+    this->abstract.device_vt = &Abstract_vmt;
 }
 
 int Base_init( BaseSensor* this)

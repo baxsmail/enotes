@@ -25,9 +25,9 @@ typedef struct _Abstract_vmt
 
 struct _Base_Sensor
 {
+    BaseDevice abstract;
 	int test_num;
 	Base_FctnTable *vmt;
-    BaseDevice *abstract;
 };
 
 

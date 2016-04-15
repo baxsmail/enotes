@@ -9,10 +9,11 @@
 #include "Base_Device.h"
 
 /* run-next function */
-static void run_next( struct event *p )
+void run_next( struct event *p )
 {
     int retNum;
     int data = 0;
+    BaseSensor *sp;
     BaseDevice *tp;
 
     /* sanity check */
@@ -38,8 +39,13 @@ static void run_next( struct event *p )
             break;
         /* Ready : ready to activate collection preprocess */
         case Ready :
-            p->sp->abstract->device_vt->init(p->sp->abstract);
-            p->sp->vmt->PreProcessing(p->sp);
+            //p->sp->abstract->device_vt->init(p->sp->abstract);
+            // p->sp->device_vt->init( p->sp );
+            sp = ( BaseSensor * )( p->sp );
+            sp->vmt->PreProcessing( sp );
+            sp->abstract.device_vt->init( &(sp->abstract) );
+            tp = ( BaseDevice * ) ( sp );
+            tp->device_vt->init( tp );
             // retNum = p->sp->vmt->PreProcess();
             // TODO : retNum = waiting time
             // if ( retNum == -1 )
@@ -96,7 +102,7 @@ static void run_next( struct event *p )
 /* 
  * load a brand new sensor activity in the scheduler
  */
-int load_new_sensor( int timeout, int repeat, BaseSensor *sensor_ptr, int otherinfo )
+int load_new_sensor( int timeout, int repeat, BaseDevice *device_ptr, int otherinfo )
 {
 
     /* assume we have available event in freelist */
@@ -107,7 +113,7 @@ int load_new_sensor( int timeout, int repeat, BaseSensor *sensor_ptr, int otheri
     ep->timeout = timeout;
     ep->repeat_interval = repeat;
 	ep->borrow_timeout = 0;
-    ep->sp = sensor_ptr;
+    ep->sp = device_ptr;
     ep->info = otherinfo;
     ep->cur_state = Ready;
     ep->run = run_next;

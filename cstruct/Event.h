@@ -19,7 +19,7 @@
 #define MAX_SLEEP_INTERVAL 0x04 // That is a second currently
 #define EV_NULL ( struct event * ) (LL_NULL)
 
-enum DeviceState { New, Ready, Running, Terminated, Oops };
+enum DeviceState { New, Ready, Running,  Oops };
 
 struct event 
 {
@@ -27,7 +27,7 @@ struct event
 	int timeout;
 	int repeat_interval;
     int borrow_timeout;
-	BaseSensor * sp;
+	BaseDevice * sp;
 	int info;
     enum DeviceState cur_state;
     void (* run)(struct event *);
@@ -42,12 +42,12 @@ struct event *timeoutq;
 struct event *freelist;
 
 /* run-next function */
-static void run_next( struct event *p );
+void run_next( struct event *p );
 
 
 
 /* API of the Round-Robin Scheduler */
-int load_new_sensor( int timeout, int repeat, BaseSensor *sensor_ptr, int otherinfo );
+int load_new_sensor( int timeout, int repeat, BaseDevice *sensor_ptr, int otherinfo );
 void init_timeoutq();
 int get_next_interval();
 void insert_timeoutq_event( struct event * event_pointer);

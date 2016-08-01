@@ -2,6 +2,7 @@
 #include "My_Sensor.h"
 #include "Event.h"
 #include <stdio.h>
+#include "my_time.h"
 
 enum MyEnum 
 {
@@ -29,5 +30,9 @@ int main()
     enum MyEnum vg ;
     vg = ROTK;
     printf("VG = %d\n",vg);
+
+    tm my_tm;
+    my_tm.unix_time =1462943387 ;
+    calcDate( &my_tm );
 	return 0;
 }

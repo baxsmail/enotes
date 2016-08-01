@@ -28,6 +28,7 @@ struct _Base_Sensor
     BaseDevice abstract;
 	int test_num;
 	Base_FctnTable *vmt;
+    int (*getNum)( BaseSensor* );
 };
 
 
@@ -44,6 +45,7 @@ int Base_reset( BaseSensor* );
 int Base_getType( BaseSensor* );
 
 BaseSensor* New_Base_Sensor( int num );
+int Base_getNum( BaseSensor * );
 
 
 

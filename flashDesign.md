@@ -19,7 +19,7 @@ More hints about Flash Disk Design --- Updated 08/18/2016
 3. Or you can just eliminate all the copy & pastes codes in FlashStorage_Device.h/.c for now. When you do something you don't want irrelevent codes bother your minds, do you?
 4. When you design codes you should always want to design it in the way that you can easily test it. Print anything in some good format so you can identify what's going on easily.
 5. Always test the functions before you need to use the functions in other functions.
-6. You should remove or comment most current codes out before launching a test. Since you want to test your function easily by including the .h and just calling them one by one. Current codes will print other stuff in the framework which can bother you debuging or thinking in various ways.
+6. You should remove or comment most current codes out in main() function before launching a test. Since you want to test your function easily by including the .h and just calling them one by one. Current codes will print other stuff in the framework which can bother you debuging or thinking in various ways.
 7. Always think twice before coding, we can never make things very right if we think it in a wrong way. 
 ### Feel free to think more and dump bunches of questions via emails. 
 

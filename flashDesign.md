@@ -34,7 +34,8 @@ Flash Disk Design
 * 8MB for managing description information
 * 50MB for 1st bank to store pure sensor data
 * 50MB for the other bank to store pure sensor data 
-* 20MB reserved for swap space or other usage in future 
+* 16MB reserved for swap space or other usage in future 
+* 4MB backup copy of the firmware as proposed by Camden@.
 
 ### Explanation
 * Description information like the version of the flash software, size of data have been stored in either bank, current bank # for storing data, the storage format, and the data structure about the sensors' output.

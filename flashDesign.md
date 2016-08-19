@@ -1,8 +1,8 @@
 More hints about Flash Disk Design --- Updated 08/18/2016
 =======================
 
-# Before you're doing any further coding imagine how should the file system work
-## To help you to do so, try go through each function except the unit ones and ask yourself these questions
+## Before you're doing any further coding imagine how should the file system work
+### To help you to do so, try go through each function except the unit ones and ask yourself these questions
 1. What information do I need to do this?
 2. Where can I find such information? 
    * If it is static constant? We should decide it first and then use a variable or macro to define it.
@@ -11,17 +11,17 @@ More hints about Flash Disk Design --- Updated 08/18/2016
 3. By using this function, should we write some information elsewhere to help retrieve it later?
 4. If needed, then where should we store it and through which method?
 
-## During or after the asking procedure you should have some questions. Please summarize them and email them to me. It's important I make sure the system has no issues and you make sure you understand it in a right way before you made further codes.
+### During or after the asking procedure you should have some questions. Please summarize them and email them to me. It's important I make sure the system has no issues and you make sure you understand it in a right way before you made further codes.
 
-# Right before you're doing further coding
-## Please don't write codes right away in FlashStorage_Device.h/.c even though I noticed so for now.
-## What you want to do is to create a new .h and .c somewhere you want and only focus on functions I provided for now.
-## Or you can just eliminate all the copy & pastes codes in FlashStorage_Device.h/.c for now. When you do something you don't want to irrelevent codes bother your minds, do you?
-## When you design codes you should always want to design it in the way that you can easily test it. Print anything in some good format so you can identify what's going on easily.
-## Always test the functions before you need to use the functions in other functions.
-## You should remove or comment most current codes out before launching a test. Since you want to test your function easily by including the .h and just calling them one by one. Current codes will print other stuff in the framework which can bother you debuging or thinking in various ways.
-## Always think twice before coding, we can never make things very right if we think it in a wrong way. 
-## Feel free to think more and ask bunches questions via emails.
+### Right before you're doing further coding
+1. Please don't write codes right away in FlashStorage_Device.h/.c even though I noticed so for now.
+2. What you want to do is to create a new .h and .c somewhere you want and only focus on functions I provided for now.
+3. Or you can just eliminate all the copy & pastes codes in FlashStorage_Device.h/.c for now. When you do something you don't want to irrelevent codes bother your minds, do you?
+4. When you design codes you should always want to design it in the way that you can easily test it. Print anything in some good format so you can identify what's going on easily.
+5. Always test the functions before you need to use the functions in other functions.
+6. You should remove or comment most current codes out before launching a test. Since you want to test your function easily by including the .h and just calling them one by one. Current codes will print other stuff in the framework which can bother you debuging or thinking in various ways.
+7. Always think twice before coding, we can never make things very right if we think it in a wrong way. 
+### Feel free to think more and dump bunches of questions via emails. 
 
 Flash Disk Design
 =====================
